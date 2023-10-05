@@ -1,1 +1,1 @@
-from .audio import AudioLDMPipeline
+from .audio_impl import AudioLDMPipeline

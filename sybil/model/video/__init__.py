@@ -1,1 +1,1 @@
-from .video import TextToVideoSDPipeline, TextToVideoSDPipelineOutput
+from .video_impl import TextToVideoSDPipeline, TextToVideoSDPipelineOutput

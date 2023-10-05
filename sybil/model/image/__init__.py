@@ -1,1 +1,1 @@
-from .image import StableDiffusionPipeline
+from .image_impl import StableDiffusionPipeline

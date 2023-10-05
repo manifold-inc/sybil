@@ -1,1 +1,1 @@
-from .layers import TextFcLayer
+from .layers_impl import TextFcLayer
