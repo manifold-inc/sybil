@@ -8,12 +8,9 @@ class Engine(nn.Module):
         super(Engine, self).__init__()
         self.config = config
 
-        imagebind_ckpt = config['imagebind_ckpt'] if 'imagebind_ckpt' in config else None
-
-        assert imagebind_ckpt is not None, 'imagebind_ckpt is not provided'
 
         # initalize the visual encoder ( imagebind )
-        self.visual_encoder, self.visual_hidden_size = imagebind_model.imagebind_huge(pretrained=True, store_path=imagebind_ckpt)
+        self.visual_encoder, self.visual_hidden_size = imagebind_model.imagebind_huge(pretrained=True)
         for name, param in self.visual_encoder.named_parameters():
             param.requires_grad = False
         self.visual_encoder.eval()
