@@ -5,6 +5,7 @@ def load_imagebind():
         os.system('mkdir -p ./ckpts/imagebind')
         os.system('wget -O ./ckpts/imagebind/imagebind_huge.pth https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth')
 
-    imagebind_ckpt = './ckpts/imagebind/imagebind_huge.pth'
 
-    return imagebind_ckpt
+    ckpt = os.path.join('./ckpts/imagebind', 'imagebind_huge.pth')
+
+    return ckpt
