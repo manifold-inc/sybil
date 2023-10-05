@@ -3,9 +3,9 @@ import torch.nn as nn
 
 from imagebind.models import imagebind_model
 
-class Sybil(nn.Module):
+class Engine(nn.Module):
     def __init__(self, config):
-        super(Sybil, self).__init__()
+        super(Engine, self).__init__()
         self.config = config
 
         imagebind_ckpt = config['imagebind_ckpt'] if 'imagebind_ckpt' in config else None

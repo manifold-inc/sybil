@@ -16,4 +16,4 @@ config = {
     'imagebind_ckpt': imagebind_ckpt,
 }
 
-sybil = sb.sybil(config)
+sybil = sb.engine(config)
