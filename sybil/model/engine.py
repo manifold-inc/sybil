@@ -4,7 +4,7 @@ import torch.nn as nn
 from typing import List
 from sybil.model.layers import TextFcLayer
 from imagebind.models import imagebind_model
-from transformers import MistralForCausalLM, MistralTokenizer, StoppingCriteria, StoppingCriteriaList
+from transformers import MistralForCausalLM, AutoTokenizer, StoppingCriteria, StoppingCriteriaList
 from peft import LoraConfig, TaskType, get_peft_model
 
 class StoppingCriteriaSub(StoppingCriteria):
@@ -72,7 +72,7 @@ class Engine(nn.Module):
 
 
         # Set up the tokenizer
-        self.llm_tokenizer = MistralTokenizer(pretrained_llm)
+        self.llm_tokenizer = AutoTokenizer(pretrained_llm)
         self.llm_tokenizer.pad_token = self.llm_tokenizer.eos_token
         self.llm_tokenizer.padding_side = "right"
 
