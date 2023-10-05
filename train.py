@@ -11,5 +11,12 @@ import sybil as sb
 #     'imagebind_ckpt': imagebind_ckpt,
 # }
 
-config = {}
+
+pretrained_llm = "teknium/CollectiveCognition-v1.1-Mistral-7B"
+freeze_lm = True
+
+config = {
+    "pretrained_llm": pretrained_llm,
+    "freeze_lm": freeze_lm,
+}
 sybil = sb.engine(config)
