@@ -14,9 +14,51 @@ import sybil as sb
 
 pretrained_llm = "teknium/CollectiveCognition-v1.1-Mistral-7B"
 freeze_lm = True
+freeze_input_proj = True
+image_diffusion = "stabilityai/stable-diffusion-xl-base-1.0"
+video_diffusion = "cerspense/zeroscope_v2_576w"
+audio_diffusion = "cvssp/audioldm-m-full"
+
+# # ========= text-to-image alignment tuning ========== #
+n_img_tokens = 4
+text_emb_to_img_layers = [-1]
+num_gen_img_tokens = 4
+text_fc_to_img_mode = "transformer"
+# # ========= text-to-video alignment tuning ========== #
+n_video_tokens = 24
+text_emb_to_video_layers = [-1]
+num_gen_video_tokens = 24
+text_fc_to_video_mode = "transformer"
+
+# # ========= text-to-audio alignment tuning ========== #
+n_audio_tokens = 8
+text_emb_to_audio_layers = [-1]
+num_gen_audio_tokens = 8
+text_fc_to_audio_mode = "transformer"
+
 
 config = {
     "pretrained_llm": pretrained_llm,
     "freeze_lm": freeze_lm,
+    "freeze_input_proj": freeze_input_proj,
+
+    "image_diffusion": image_diffusion,
+    "video_diffusion": video_diffusion,
+    "audio_diffusion": audio_diffusion,
+
+    "n_img_tokens": n_img_tokens,
+    "text_emb_to_img_layers": text_emb_to_img_layers,
+    "num_gen_img_tokens": num_gen_img_tokens,
+    "text_fc_to_img_mode": text_fc_to_img_mode,
+
+    "n_video_tokens": n_video_tokens,
+    "text_emb_to_video_layers": text_emb_to_video_layers,
+    "num_gen_video_tokens": num_gen_video_tokens,
+    "text_fc_to_video_mode": text_fc_to_video_mode,
+
+    "n_audio_tokens": n_audio_tokens,
+    "text_emb_to_audio_layers": text_emb_to_audio_layers,
+    "num_gen_audio_tokens": num_gen_audio_tokens,
+    "text_fc_to_audio_mode": text_fc_to_audio_mode,
 }
 sybil = sb.engine(config)
