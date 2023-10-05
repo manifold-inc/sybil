@@ -1,7 +1,6 @@
 import os
 
-from sybil.model import Sybil
-
+import sybil as sb
 
 
 # check if the imagebind model is available at ./ckpts/imagebind/imagebind_huge.pth if not, download it from https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth
@@ -17,4 +16,4 @@ config = {
     'imagebind_ckpt': imagebind_ckpt,
 }
 
-sybil = Sybil(config)
+sybil = sb.sybil(config)
