@@ -1,2 +1,2 @@
-https://github.com/facebookresearch/ImageBind.git
+imagebind @ git+https://github.com/facebookresearch/ImageBind.git
 torch
