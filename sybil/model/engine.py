@@ -36,43 +36,43 @@ class Engine(nn.Module):
         freeze_lm = self.config["freeze_lm"]
         freeze_input_proj = self.config["freeze_input_proj"]
         
-        # initalize the visual encoder ( imagebind )
-        self.visual_hidden_size = 1024
-        self.visual_encoder = imagebind_model.imagebind_huge(pretrained=True)
+        # # initalize the visual encoder ( imagebind )
+        # self.visual_hidden_size = 1024
+        # self.visual_encoder = imagebind_model.imagebind_huge(pretrained=True)
 
-        # freeze the visual encoder
-        for name, param in self.visual_encoder.named_parameters():
-            param.requires_grad = False
-        self.visual_encoder.eval()
+        # # freeze the visual encoder
+        # for name, param in self.visual_encoder.named_parameters():
+        #     param.requires_grad = False
+        # self.visual_encoder.eval()
 
-        print('Visual encoder initialized.')
+        # print('Visual encoder initialized.')
 
-        # load the LLM
-        self.llm = MistralForCausalLM.from_pretrained(pretrained_llm)
+        # # load the LLM
+        # self.llm = MistralForCausalLM.from_pretrained(pretrained_llm)
 
-        if freeze_lm:
-            for name, param in self.llm.named_parameters():
-                param.requires_grad = False
-            self.llm.eval()
-        else:
-            print("Instruct tuning the LLaMa ...")
-            # add the lora module
-            peft_config = LoraConfig(
-                task_type=TaskType.CAUSAL_LM,
-                inference_mode=False,
-                r=self.config['lora_r'],
-                lora_alpha=self.config['lora_alpha'],
-                lora_dropout=self.config['lora_dropout'],
-                target_modules=['q_proj', 'k_proj', 'v_proj', 'o_proj']
-            )
+        # if freeze_lm:
+        #     for name, param in self.llm.named_parameters():
+        #         param.requires_grad = False
+        #     self.llm.eval()
+        # else:
+        #     print("Instruct tuning the LLaMa ...")
+        #     # add the lora module
+        #     peft_config = LoraConfig(
+        #         task_type=TaskType.CAUSAL_LM,
+        #         inference_mode=False,
+        #         r=self.config['lora_r'],
+        #         lora_alpha=self.config['lora_alpha'],
+        #         lora_dropout=self.config['lora_dropout'],
+        #         target_modules=['q_proj', 'k_proj', 'v_proj', 'o_proj']
+        #     )
 
-            self.llm = get_peft_model(self.llm, peft_config)
-            self.llm.print_trainable_parameters()
-        print('Language decoder initialized.')
+        #     self.llm = get_peft_model(self.llm, peft_config)
+        #     self.llm.print_trainable_parameters()
+        # print('Language decoder initialized.')
 
 
         # Set up the tokenizer
-        self.llm_tokenizer = AutoTokenizer(pretrained_llm)
+        self.llm_tokenizer = AutoTokenizer.from_pretrained(pretrained_llm)
         self.llm_tokenizer.pad_token = self.llm_tokenizer.eos_token
         self.llm_tokenizer.padding_side = "right"
 
