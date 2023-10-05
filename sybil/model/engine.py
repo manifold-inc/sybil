@@ -13,7 +13,7 @@ class Engine(nn.Module):
         assert imagebind_ckpt is not None, 'imagebind_ckpt is not provided'
 
         # initalize the visual encoder ( imagebind )
-        self.visual_encoder, self.visual_hidden_size = imagebind_model.imagebind_huge(pretrained=True, ckpt=imagebind_ckpt)
+        self.visual_encoder, self.visual_hidden_size = imagebind_model.imagebind_huge(pretrained=True, store_path=imagebind_ckpt)
         for name, param in self.visual_encoder.named_parameters():
             param.requires_grad = False
         self.visual_encoder.eval()
