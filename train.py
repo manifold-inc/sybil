@@ -36,6 +36,12 @@ text_emb_to_audio_layers = [-1]
 num_gen_audio_tokens = 8
 text_fc_to_audio_mode = "transformer"
 
+# # ========= other configs ========== #
+seed = 13
+max_length = 512  # max length of the user input prompt
+logging_step = 5
+num_clip_tokens = 77
+gen_emb_dim = 768
 
 config = {
     "pretrained_llm": pretrained_llm,
@@ -60,5 +66,12 @@ config = {
     "text_emb_to_audio_layers": text_emb_to_audio_layers,
     "num_gen_audio_tokens": num_gen_audio_tokens,
     "text_fc_to_audio_mode": text_fc_to_audio_mode,
+
+    "seed": seed,
+    "max_length": max_length,
+    "logging_step": logging_step,
+    "num_clip_tokens": num_clip_tokens,
+    "gen_emb_dim": gen_emb_dim,
+    
 }
 sybil = sb.engine(config)
