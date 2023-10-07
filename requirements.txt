@@ -7,3 +7,4 @@ img2dataset
 deepspeed
 numpy
 video2dataset
+audiocaps-download

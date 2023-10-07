@@ -12,6 +12,13 @@ cat header.tsv GCC-training.tsv > temp.tsv && mv temp.tsv GCC-training.tsv
 rm header.tsv
 
 img2dataset --url_list GCC-training.tsv --input_format "tsv" --url_col "url" --caption_col "caption" --output_format webdataset --output_folder cc3m --processes_count 16 --thread_count 64 --image_size 256 --enable_wandb True
+
+cd cc3m
+
+for file in *.tar; do
+    tar -xf "$file"
+done
+
 cd ../
 
 # webvid download

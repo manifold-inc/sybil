@@ -11,6 +11,7 @@ import deepspeed
 import numpy as np
 import sybil as sb
 
+from tqdm import tqdm
 from transformers.deepspeed import HfDeepSpeedConfig
 
 
@@ -87,7 +88,37 @@ def run( **args ):
             filemode='w'
         )
     train_data, train_iter, sampler = sb.load_dataset(args, args['dataset_name_list'])
-    import code; code.interact(local=dict(globals(), **locals()))
+
+    train_num = max([_cur_dataset.__len__() for _cur_dataset in train_data.datasets.datasets]) * len(train_data.datasets.datasets)
+    length = args['epochs'] * train_num // args['world_size'] // dschf.config[
+        'train_micro_batch_size_per_gpu']
+    total_steps = args['epochs'] * train_num // dschf.config['train_batch_size']
+    args['total_steps'] = total_steps
+
+    # load agent
+    engine = sb.engine(args)
+    agent = sb.agent(args, engine)
+    torch.distributed.barrier()
+
+
+    # begin to train
+    pbar = tqdm(total=length)  # maximum total number
+    current_step = 0
+    for epoch_i in tqdm(range(args['epochs'])):
+        # for train_iter in train_iter_list:
+        for batch in train_iter:
+            agent.train_model(
+                batch,
+                current_step=current_step,
+                pbar=pbar
+            )
+            current_step += 1
+            # if current_step % 2000 == 0:
+            #     torch.distributed.barrier()
+            #     agent.save_model(args['save_path'], current_step)
+    # save at the end of the training
+    torch.distributed.barrier()
+    agent.save_model(args['save_path'], current_step)
 
 
 

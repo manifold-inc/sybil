@@ -12,7 +12,7 @@ gen_emb_dim: 768
 pretrained_ckpt_path: ./ckpt/pretrained_ckpt/
 
 # ========= LLM ========== #
-llm_name: teknium/CollectiveCognition-v1.1-Mistral-7B
+pretrained_llm: teknium/CollectiveCognition-v1.1-Mistral-7B
 vicuna_version: 7b_v0 # [7b_v0, ]
 
 # ========= multimodal encoder ========== #

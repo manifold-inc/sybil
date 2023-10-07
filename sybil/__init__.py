@@ -20,3 +20,6 @@ from .model.audio import (
 from .dataset import (
     load_dataset
 )
+
+from .agent import DeepSpeedAgent as agent
+     
