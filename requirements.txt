@@ -3,6 +3,6 @@ torch
 transformers>=4.34.0
 peft
 diffusers
-
+img2dataset
 deepspeed
 numpy
