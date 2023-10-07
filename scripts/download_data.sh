@@ -6,7 +6,7 @@ rm -rf cc3m
 mkdir cc3m
 cd cc3m
 wget -nc https://storage.cloud.google.com/gcc-data/Train/GCC-training.tsv
-img2dataset --url_list Train_GCC-training.tsv --input_format "tsv" --url_col "url" --caption_col "caption" --output_format webdataset --output_folder cc3m --processes_count 16 --thread_count 64 --image_size 256 --enable_wandb True
+img2dataset --url_list GCC-training.tsv --input_format "tsv" --url_col "url" --caption_col "caption" --output_format webdataset --output_folder cc3m --processes_count 16 --thread_count 64 --image_size 256 --enable_wandb True
 cd ../
 
 # webvid download
