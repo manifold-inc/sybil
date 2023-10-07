@@ -5,10 +5,10 @@ cd T-X_pair_data/
 rm -rf webvid
 mkdir webvid
 cd webvid
-cp ../../scripts/webvid.sh .
+cp ../../../scripts/webvid.yml .
 wget -nc http://www.robots.ox.ac.uk/~maxbain/webvid/results_2M_train.csv
 
-video2dataset --url_list="results_10M_train.csv" \
+video2dataset --url_list="results_2M_train.csv" \
         --input_format="csv" \
         --output-format="webdataset" \
 	    --output_folder="dataset" \
@@ -16,7 +16,7 @@ video2dataset --url_list="results_10M_train.csv" \
         --caption_col="name" \
         --save_additional_columns='[videoid,page_idx,page_dir,duration]' \
         --enable_wandb=True \
-	--config="./webvid.sh" \
+	--config="./webvid.yml" \
 
 cd ../
 
