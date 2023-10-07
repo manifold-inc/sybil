@@ -4,3 +4,5 @@ transformers>=4.34.0
 peft
 diffusers
 yaml
+deepspeed
+numpy
