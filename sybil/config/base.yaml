@@ -9,9 +9,10 @@ max_length: 512 # max length of the user input prompt
 logging_step: 5
 num_clip_tokens: 77
 gen_emb_dim: 768
-pretrained_ckpt_path: ../ckpt/pretrained_ckpt/
+pretrained_ckpt_path: ./ckpt/pretrained_ckpt/
 
 # ========= LLM ========== #
+llm_name: teknium/CollectiveCognition-v1.1-Mistral-7B
 vicuna_version: 7b_v0 # [7b_v0, ]
 
 # ========= multimodal encoder ========== #
@@ -36,7 +37,7 @@ num_gen_audio_tokens: 8
 text_fc_to_audio_mode: transformer  # [qformer, transformer]
 
 # ========= image diffusion model ========== #
-image_diffusion: runwayml/stable-diffusion-v1-5 # [runwayml/stable-diffusion-v1-5, stabilityai/stable-diffusion-2]
+image_diffusion: stabilityai/stable-diffusion-xl-base-1.0 # [runwayml/stable-diffusion-v1-5, stabilityai/stable-diffusion-2]
 
 # ========= video diffusion model ========== #
 video_diffusion: cerspense/zeroscope_v2_576w

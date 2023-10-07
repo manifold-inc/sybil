@@ -1,21 +1,26 @@
 import os
 
+import time
 import torch
 import random
+import pprint
+import logging
 import argparse
 import deepspeed
 
 import numpy as np
 import sybil as sb
 
+from transformers.deepspeed import HfDeepSpeedConfig
+
 
 def parser_args():
     parser = argparse.ArgumentParser(description='train parameters')
-    parser.add_argument('--model', type=str, default='nextgpt')
+    parser.add_argument('--model', type=str, default='sybil')
     parser.add_argument('--mode', type=str, default='train', help='train or test or validation')
     parser.add_argument('--local_rank', default=0, type=int)
-    parser.add_argument('--save_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/')
-    parser.add_argument('--log_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/log/')
+    parser.add_argument('--save_path', type=str, default='./ckpt/delta_ckpt/sybil/sybil-7b-v0/')
+    parser.add_argument('--log_path', type=str, default='./ckpt/delta_ckpt/sybil/sybil-7b-v0/log/')
     parser.add_argument('--assets_path', type=str, default='./assets/')
 
     # model configurations
@@ -25,7 +30,7 @@ def parser_args():
     return parser.parse_args()
 
 
-def initialize_distributed(args):
+def initialize_distributed( args ):
     args['master_ip'] = os.getenv('MASTER_ADDR', 'localhost')
     args['master_port'] = os.getenv('MASTER_PORT', '6000')
     args['world_size'] = int(os.getenv('WORLD_SIZE', '1'))
@@ -35,7 +40,7 @@ def initialize_distributed(args):
     deepspeed.init_distributed(dist_backend='nccl')
 
 
-def set_random_seed(seed):
+def set_random_seed( seed ):
     if seed is not None and seed > 0:
         random.seed(seed)
         np.random.seed(seed)
@@ -43,6 +48,46 @@ def set_random_seed(seed):
         torch.random.manual_seed(seed)
         torch.cuda.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)
+
+def create_environment(args):
+    args['root_dir'] = './'
+    # args['mode'] = 'train'
+    config = sb.load_config(args)
+    args.update(config)
+    initialize_distributed(args)
+    set_random_seed(args['seed'])
+
+
+def build_directory( path ):
+    if os.path.exists( path ):
+        pass
+    else:
+        os.makedirs( path, exist_ok=True )
+
+
+def run( **args ):
+    # run create_environment
+    create_environment( args ) 
+    pprint.pprint( args )
+
+    # set up deepspeed config path
+    args['ds_config_path'] = f'./dsconfig/stage_{args["stage"]}.json'
+    dschf = HfDeepSpeedConfig(args['ds_config_path'])
+    args['dschf'] = dschf
+
+    # create build directories
+    build_directory(args['save_path'])
+    build_directory(args['log_path'])
+
+    if args['log_path']:
+        logging.basicConfig(
+            format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
+            level=logging.DEBUG,
+            filename=f'{args["log_path"]}/train_{time.asctime()}.log',
+            filemode='w'
+        )
+    train_data, train_iter, sampler = load_dataset(args, args['dataset_name_list'])
+
 
 
 

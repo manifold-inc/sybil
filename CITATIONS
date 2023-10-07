@@ -1,0 +1,7 @@
+@articles{wu2023nextgpt,
+  title={NExT-GPT: Any-to-Any Multimodal LLM},
+  author={Shengqiong Wu and Hao Fei and Leigang Qu and Wei Ji and Tat-Seng Chua},
+  journal = {CoRR},
+  volume = {abs/2309.05519},
+  year={2023}
+}
