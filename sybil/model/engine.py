@@ -44,9 +44,9 @@ class StoppingCriteriaSub(StoppingCriteria):
         return False
 
 
-class Engine(nn.Module):
+class SybilEngine(nn.Module):
     def __init__(self, config):
-        super(Engine, self).__init__()
+        super(SybilEngine, self).__init__()
         self.config = config
 
         # init params
