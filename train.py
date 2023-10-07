@@ -86,13 +86,15 @@ def run( **args ):
             filename=f'{args["log_path"]}/train_{time.asctime()}.log',
             filemode='w'
         )
-    train_data, train_iter, sampler = load_dataset(args, args['dataset_name_list'])
-
+    train_data, train_iter, sampler = sb.load_dataset(args, args['dataset_name_list'])
+    import code; code.interact(local=dict(globals(), **locals()))
 
 
 
 args = parser_args()
-import code; code.interact(local=dict(globals(), **locals()))
+
+run( **vars(args) ) 
+# import code; code.interact(local=dict(globals(), **locals()))
 
 
 # check if the imagebind model is available at ./ckpts/imagebind/imagebind_huge.pth if not, download it from https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth

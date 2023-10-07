@@ -17,3 +17,6 @@ from .model.audio import (
     AudioLDMPipeline
 )
 
+from .dataset import (
+    load_dataset
+)
