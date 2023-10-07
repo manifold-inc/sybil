@@ -1,1 +1,1 @@
-from .load_model import load_imagebind
+from .utils_impl import *
