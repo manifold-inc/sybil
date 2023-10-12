@@ -1,6 +1,6 @@
 import os
 import json
-
+from tqdm import tqdm
 # Read Train_GCC-training.tsv
 with open('data/T-X_pair_data/cc3m/GCC-training.tsv', 'r') as f:
     lines = f.readlines()
@@ -18,5 +18,6 @@ for line, image_file in zip(lines, image_files):
     })
 
 # Save to cc3m.json
-with open('data/T-X_pair_data/cc3m/cc3m.json', 'w') as f:
-    json.dump(data, f, indent=4)
+with open('data/T-X_pair_data/cc3m/cc3m.json', 'a') as f:
+    for d in tqdm(data):
+        json.dump(data, f, indent=4)

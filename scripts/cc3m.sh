@@ -19,6 +19,17 @@ for file in *.tar; do
     tar -xf "$file"
 done
 
+cd ~/sybil
+python scripts/cc3m.py
+
+cd data/T-X_pair_data/cc3m
+
+mkdir images
+for file in cc3m/*.jpg; do
+    mv "$file" images/
+done
+
+
 cd ../
 
 # webvid download
