@@ -20,4 +20,4 @@ for line, image_file in zip(lines, image_files):
 # Save to cc3m.json
 with open('data/T-X_pair_data/cc3m/cc3m.json', 'a') as f:
     for d in tqdm(data):
-        json.dump(data, f, indent=4)
+        json.dump(d, f, indent=4)
